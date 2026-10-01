@@ -165,7 +165,13 @@ body.nx {
 
 /* header + hero */
 .nx-dark { background: var(--nx-ink); }
-.nx-header { height: 88px; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--nx-pad); border-bottom: 1px solid #323336; }
+.nx-header { position: sticky; top: 0; z-index: 10; height: 88px; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--nx-pad); background: var(--nx-ink); border-bottom: 1px solid #323336; transition: box-shadow 150ms; }
+.nx-header.is-stuck { box-shadow: 0 6px 20px rgba(0, 0, 0, .35); }
+.nx-menu-toggle { display: none; width: 40px; height: 40px; padding: 0; align-items: center; justify-content: center; background: none; border: 0; border-radius: 4px; cursor: pointer; }
+.nx-menu-toggle .nx-menu-toggle__close, .nx-menu-toggle[aria-expanded="true"] .nx-menu-toggle__open { display: none; }
+.nx-menu-toggle[aria-expanded="true"] .nx-menu-toggle__close { display: block; }
+html { scroll-behavior: smooth; }
+.nx-page section[id] { scroll-margin-top: 88px; }
 .nx-nav { display: flex; gap: 34px; height: 100%; }
 .nx-nav__item { display: flex; flex-direction: column; justify-content: space-between; align-items: stretch; padding-top: 4px; font-weight: 600; font-size: 14px; color: #fff; }
 .nx-nav__item::after { content: ""; height: 3px; background: var(--nx-ink); }
@@ -174,7 +180,7 @@ body.nx {
 .nx-lang { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; color: var(--nx-soft); }
 
 .nx-hero { display: grid; grid-template-columns: max(800px, 55.5%) 1fr; min-height: 812px; }
-.nx-hero__content { display: flex; flex-direction: column; justify-content: space-between; padding: 82px 72px 68px var(--nx-pad); }
+.nx-hero__content { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding: 82px 72px 68px var(--nx-pad); }
 .nx-hero__message { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; }
 .nx-sector { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 14px; text-transform: uppercase; color: var(--nx-soft); }
 .nx-sector__marker { width: 28px; height: 4px; background: var(--nx-yellow); }
@@ -403,10 +409,41 @@ body.nx {
 .ds-usage { display: flex; align-items: center; gap: 18px; padding: 24px; background: var(--nx-tint); border-radius: 8px; }
 .ds-usage p { flex: 1; min-width: 0; font-size: 14px; line-height: 1.45; }
 
+/* interaction states (hover, focus, active) — not defined in the Figma frames */
+.nx-nav__item, .ds-navlinks a, .nx-footer__col a, .nx-footer__links a, .nx-brand, .nx-lang,
+.nx-btn, .nx-card, .ds-card, .nx-service, .nx-social a { transition: color 150ms, background-color 150ms, border-color 150ms, box-shadow 150ms, transform 150ms, filter 150ms; }
+
+.nx-nav__item:hover, .ds-navlinks a:hover, .nx-footer__col a:hover, .nx-footer__links a:hover { color: var(--nx-yellow); }
+.nx-social a:hover { border-color: var(--nx-yellow); }
+.nx-service:hover { background: rgba(17, 17, 17, .05); }
+
+.nx-btn:not(.nx-btn--disabled):hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(17, 17, 17, .22); }
+.nx-btn:not(.nx-btn--disabled):active { transform: translateY(0); box-shadow: none; filter: brightness(.92); }
+.nx-btn--disabled { cursor: not-allowed; }
+
+.nx-card:hover, .ds-card:is(a):hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(17, 17, 17, .14); }
+.nx-card:active, .ds-card:is(a):active { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(17, 17, 17, .12); }
+
+.nx a:focus-visible, .nx button:focus-visible, .ds-choice:has(input:focus-visible) { outline: 2px solid var(--nx-blue); outline-offset: 2px; box-shadow: 0 0 0 2px #fff; border-radius: 4px; }
+.ds-input:focus-within { border-color: var(--nx-blue); }
+.ds-input--error:focus-within { border-color: var(--nx-error); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .nx-btn, .nx-card, .ds-card { transition: none; }
+  .nx-btn:not(.nx-btn--disabled):hover, .nx-card:hover, .ds-card:is(a):hover { transform: none; }
+}
+
 /* Nexera: stack columns on narrower viewports (no mobile frame in Figma) */
 @media (max-width: 1100px) {
-  .nx-header { height: auto; flex-wrap: wrap; gap: 16px; padding-block: 16px; }
-  .nx-nav { height: 40px; flex-wrap: wrap; }
+  .nx-header { height: auto; min-height: 88px; flex-wrap: wrap; padding-block: 24px 0; padding-bottom: 24px; }
+  .nx-header__actions { gap: 12px; }
+  .nx-menu-toggle { display: flex; }
+  .nx-nav { display: none; order: 3; width: 100%; height: auto; flex-direction: column; gap: 0; margin-top: 16px; }
+  .nx-header.is-open .nx-nav { display: flex; }
+  .nx-nav__item { padding: 14px 0 10px; gap: 10px; border-top: 1px solid #323336; font-size: 16px; }
+  .nx-nav__item::after { width: 28px; }
+  .nx-page section[id] { scroll-margin-top: 0; }
   .nx-footprint, .nx-safety, .nx-careers, .nx-contact, .nx-lifecycle, .nx-proof, .nx-footer__content, .nx-process, .nx-intro,
   .ds-type, .ds-spacing, .ds-form, .ds-fields, .ds-cards, .ds-swatches, .ds-buttons { flex-direction: column; }
   .nx-hero { display: flex; flex-direction: column; }

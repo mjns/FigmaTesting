@@ -12,13 +12,12 @@
 <body class="nx">
   <div class="nx-page" data-node-id="3:6722">
 
-    <div class="nx-dark" data-node-id="3:6723">
-      <header class="nx-header" data-node-id="3:6724">
+    <header class="nx-header" data-node-id="3:6724">
         <a class="nx-brand" href="nexera.html">
           <span class="nx-mark"><img src="assets/nexera/route.svg" alt="" width="20" height="20"></span>
           <span class="nx-wordmark"><strong>NEXERA</strong><span>Networks</span></span>
         </a>
-        <nav class="nx-nav" aria-label="Primary">
+        <nav class="nx-nav" id="primary-nav" aria-label="Primary">
           <a class="nx-nav__item" href="#footprint">Company</a>
           <a class="nx-nav__item is-active" href="#solutions">Solutions</a>
           <a class="nx-nav__item" href="#services">Services</a>
@@ -28,9 +27,14 @@
         <div class="nx-header__actions">
           <span class="nx-lang">EN <img src="assets/nexera/chevron-down.svg" alt="" width="14" height="14"></span>
           <a class="nx-btn nx-btn--primary nx-btn--sm" href="#contact">Contact us <img src="assets/nexera/arrow-up-right.svg" alt="" width="16" height="16"></a>
+          <button class="nx-menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Menu">
+            <img class="nx-menu-toggle__open" src="assets/nexera/menu.svg" alt="" width="24" height="24">
+            <img class="nx-menu-toggle__close" src="assets/nexera/close.svg" alt="" width="24" height="24">
+          </button>
         </div>
-      </header>
+    </header>
 
+    <div class="nx-dark" data-node-id="3:6723">
       <section class="nx-hero" data-node-id="3:6754">
         <div class="nx-hero__content">
           <div class="nx-hero__message">
@@ -397,5 +401,6 @@
     </footer>
 
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
