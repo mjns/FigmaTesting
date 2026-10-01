@@ -1,54 +1,88 @@
+/* Figma frame "Desktop - 1" (18:3), 1440 x 1024 */
 :root {
-  --miscellaneous-keyboards-keys: #141414;
-  --accents-yellow: #ffcc00;
+  --bg: #f7eded;
   --card-bg: #d9d9d9;
-  --page-bg: #ffffff;
+  --keys: #141414; /* miscellaneous/keyboards/keys */
+  --text: #000;
+  --font: "Inter", system-ui, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: var(--page-bg);
-  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  font-family: var(--font);
 }
 
-/* Desktop - 1 (1440x1024): a kártya a frame-en belül 124px / 137px pozícióban van */
 .page {
+  max-width: 1440px;
   min-height: 1024px;
   padding: 137px 0 0 124px;
 }
 
 .comp1 {
+  width: 346px;
+  height: 291px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 346px;
-  max-width: 100%;
-  height: 291px;
-  padding: 8px;
   background: var(--card-bg);
 }
 
 .comp1__title {
   width: 276px;
-  max-width: 100%;
   height: 52px;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 22px;
   font-weight: 700;
-  color: var(--miscellaneous-keyboards-keys);
+  font-size: 22px;
+  line-height: normal;
+  color: var(--keys);
 }
 
-.comp1__shape {
+.comp1__polygon {
   display: block;
+  flex-shrink: 0;
   width: 212px;
   height: 159px;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 15px; /* ellipse top 443 - card bottom 428 */
+}
+
+.lorem {
+  width: 507px;
+  margin: 133px 0 0 16px; /* text top 576, left 140 */
+  font-weight: 400;
+  font-size: 24px;
+  line-height: normal;
+  color: var(--text);
+}
+
+.ellipse {
+  display: block;
+  flex-shrink: 0;
+  width: 559px;
+  height: 393px;
+  margin-left: 52px; /* ellipse left 699 */
+}
+
+@media (max-width: 1300px) {
+  .page { padding: 32px 24px; min-height: 0; }
+  .row { flex-direction: column; margin-top: 32px; gap: 32px; }
+  .lorem { width: auto; max-width: 507px; margin: 0; }
+  .ellipse { margin: 0; width: 100%; max-width: 559px; height: auto; aspect-ratio: 559 / 393; }
+}
+
+@media (max-width: 420px) {
+  .comp1 { width: 100%; }
 }
