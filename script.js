@@ -26,8 +26,29 @@
     }
   });
 
+  // active menu item follows the section currently in view
+  var links = Array.prototype.slice.call(header.querySelectorAll('.nx-nav a[href^="#"]'));
+  var targets = ['solutions', 'services', 'footprint', 'projects', 'careers', 'contact']
+    .map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+
+  function updateActive() {
+    var probe = header.offsetHeight + window.innerHeight * 0.25;
+    var current = null;
+    targets.forEach(function (el) {
+      if (el.getBoundingClientRect().top <= probe) current = el.id;
+    });
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + current;
+      a.classList.toggle('is-active', on);
+      if (on) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
   function onScroll() {
     header.classList.toggle('is-stuck', window.scrollY > 0);
+    updateActive();
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
